@@ -11,7 +11,6 @@ main {
 
 .login-box {
 	width: 320px;
-	height: 420px;
 	background: #fff;
 	color: #496b98;
 	top: 40%;
@@ -20,6 +19,7 @@ main {
 	transform: translate(-50%, -50%);
 	box-sizing: border-box;
 	padding: 70px 30px;
+	padding-bottom: 25px;
 	display: inline-block;
 
 }
