@@ -1,4 +1,5 @@
 @import url("header_footer.css");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 main {
     margin: 0;
     padding: 0;
@@ -10,82 +11,215 @@ main {
 }
 
 .login-box {
-	width: 320px;
-	background: #fff;
-	color: #496b98;
-	top: 40%;
-	left: 50%;
-	position: absolute;
-	transform: translate(-50%, -50%);
-	box-sizing: border-box;
-	padding: 70px 30px;
-	padding-bottom: 25px;
-	display: inline-block;
+width: 320px;
+height: 420px;
+background: #fff;
+color: #ff6000;
+top: 40%;
+left: 50%;
+position: absolute;
+transform: translate(-50%, -50%);
+box-sizing: border-box;
+padding: 70px 30px;
+display: inline-block;
 
 }
 
 .login-box .avatar {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	position: absolute;
-	top: -50px;
-	left: calc(50% - 50px);
+width: 100px;
+height: 100px;
+border-radius: 50%;
+position: absolute;
+top: -50px;
+left: calc(50% - 50px);
 }
 
 .login-box h1 {
-	margin: 0;
-	padding: 0 0 20%;
-	text-align: center;
-	font-size: 22px;
+margin: 0;
+padding: 0 0 20%;
+text-align: center;
+font-size: 22px;
 }
 
 .login-box label {
-	margin: 0;
-	padding: 0;
-	font-weight: bold;
-	display: block;
+margin: 0;
+padding: 0;
+font-weight: bold;
+display: block;
 }
 
 .login-box input {
-	width: 100%;
-	margin-bottom: 20px;
+width: 100%;
+margin-bottom: 20px;
 }
 
 .login-box input[type="text"], .login-box input[type="password"] {
-	border: none;
-	border-bottom: 1px solid #496b98;
-	background: transparent;
-	outline: none;
-	height: 40px;
-	color: #496b98;
-	font-size: 16px;
+border: none;
+border-bottom: 1px solid #ff6000;
+background: transparent;
+outline: none;
+height: 40px;
+color: #ff6000;
+font-size: 16px;
 }
 
 .login-box input[type="submit"] {
-	border: none;
-	outline: none;
-	height: 40px;
-	background: #3cdbc0;
-	color: white;
-	font-size: 18px;
-	border-radius: 20px;
+border: none;
+outline: none;
+height: 40px;
+background: #ff6000;
+color: white;
+font-size: 18px;
+border-radius: 20px;
 }
 
 .login-box input[type="submit"]:hover {
-	cursor: pointer;
-	background: #3cdbc0;
-	color: #496b98;
+cursor: pointer;
+background: #ff6000;
+color: #ff6000;
 }
 
 .login-box a {
-	text-decoration: none;
-	font-size: 12px;
-	line-height: 20px;
-	color: darkgrey;
+text-decoration: none;
+font-size: 12px;
+line-height: 20px;
+color: darkgrey;
 }
 
 .login-box a:hover {
-	color: #496b98;
+color: #ff6000;
 }
   
+* {
+	box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+   background: url(../img/imagen.jpeg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+* {
+    box-sizing: border-box;
+}
+.contenedor{
+    width: 100%;
+    padding: 15px;
+}
+.formulario{
+    background: #fff;
+    margin-top: 150px;
+    padding: 3px;
+}
+h1{
+    text-align: center;
+    color: #ff6000;
+    font-size: 40px;
+}
+input[type="text"],
+input[type="password"]{
+    font-size: 20px;
+    width: 82%;
+    padding: 10px;
+    border: none;
+}
+.input-contenedor{
+    margin-bottom: 15px;
+    border: 1px solid #ff6000;
+}
+.icon{
+    min-width: 50px;
+    text-align: center;
+    color: #ff6000;
+}
+.button{
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    background:  #ff6000;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:hover{
+    background: rgb(245, 153, 68);
+}
+p{
+    text-align: center;
+}
+.link{
+    text-decoration: none;
+      color: #ff6000;
+    font-weight: 600;
+}
+.link:hover{
+     color: rgb(245, 153, 68);
+}
+.container.right-panel-active .overlay {
+  	transform: translateX(50%);
+}
+
+.overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+	transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+.overlay-right {
+	right: 0;
+	transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+	transform: translateX(20%);
+}
+
+.social-container {
+	margin: 20px 0;
+}
+
+.social-container a  {
+	border: 1px solid #DDDDDD;
+	border-radius: 50%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 90px;
+	height: 40px;
+	width: 40px;
+	transition: all ease-in-out .4s;
+}
+.social-container a:hover{
+	border: 2px solid #ff6000;
+	background-color: #ff6000(255, 95, 31);
+	color: rgb(231, 94, 3);
+}
+@media(min-width:768px)
+{
+    .formulario{
+        margin: auto;
+        width: 500px;
+        margin-top: 150px;
+        border-radius: 2%;
+    }
+}
