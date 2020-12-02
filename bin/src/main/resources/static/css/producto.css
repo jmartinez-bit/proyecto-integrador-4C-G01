@@ -1,0 +1,229 @@
+@import url("header_footer.css");
+main{
+    padding: 15px;
+    background: rgb(144, 164, 174);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ECEFF1;
+}
+/*article: imagen*/
+article{
+    width: 100%;
+    background: white;
+    max-width: 525px;    
+}
+article img{
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+/*****************/
+/*form*/
+form{
+    background: white;
+    padding: 5px;
+    max-width: 525px;
+    margin-top: 10px;
+    height: auto;
+}
+/*estrellas*/
+form h5{
+    width: 100%;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+form h5 i{
+    font-size: 22px;
+    margin-left: 2px;
+    margin-right: 2px;
+    color: gold;
+}
+/**********/
+/*Nombre*/
+form h6{
+    margin-bottom: 0;
+    font-size: 14px;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+/*precio - cantidad*/
+form section{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+}
+form section{
+    padding: 0;
+    height: 30px;
+}
+.left{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    height: 100%;
+    padding-left: 5px;
+    color:#496b98;
+}
+.rigth{
+    width: 20%;
+    max-width: 90px;
+    height: 100%;
+    color:#496b98;
+
+}
+.contenedor{
+    display: flex;
+    padding: 1px;
+    border: 1px solid #496b98;
+
+    height: 100%;
+}
+.contenedor .bordes{
+    width: calc(100%/3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contenedor .bordes:first-child{
+    cursor: pointer;
+}
+.contenedor .bordes:last-child{
+    cursor: pointer;
+}
+#cantidad{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-left: 1px solid #496b98;
+    border-right: 1px solid #496b98;
+    color: #496b98;
+    text-align: center;
+    outline: none;
+}
+/*****************/
+/*tienda*/
+.tienda{
+    padding: 5px;
+    display: flex;
+    color:#496b98;
+}
+.tienda p{
+    margin-bottom: 0;
+    color:#496b98;
+}
+/****************/
+/*características*/
+
+.desplegador{
+    display: flex;
+    padding: 5px 5px 0 0px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #496b98;
+    color:#496b98;
+}
+.desplegador i{
+    transition: .3s;
+}
+.contenedor-caracteristicas{
+    padding: 5px 10px;
+}
+.caracteristicas{
+    background: #ECEFF1;
+    padding: 5px 5px 5px 5px;
+    display: none;
+}
+.caracteristica{
+    margin:5px 0;
+    background: white;
+    display: flex;
+    padding: 10px 8px;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+.caracteristica p:first-child{
+    font-size: 12px;
+    width: 25%;
+}
+.caracteristica p:last-child{
+    font-size: 11px;
+    width: 100%;
+}
+
+.rotacion{
+    transition: .3s;
+    transform: rotate(180deg);
+}
+/*********************************/
+/*Botones*/
+.botones{
+    background:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+#carrito, .botones button{
+    margin: 5px 8px;
+    min-width: 200px;
+    width: 50%;
+    max-width: 200px;
+    background: none;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 20px;
+    height: 35px;
+    background: rgba(19, 193, 172);
+    border: 1px solid rgba(19, 193, 172);
+    cursor: pointer;
+    transition: .4s;
+}
+#carrito:hover{
+    background: white;
+    color: rgba(19, 193, 172);
+    border: 1px solid rgba(19, 193, 172);
+    transition: .4s;
+}
+.botones button:hover{
+    background: rgb(243, 116, 23);
+    color: white;
+}
+.botones button{
+    background: none;
+    border: 1px solid rgb(243, 116, 23);
+    color: rgb(243, 116, 23);
+}
+/************************/
+/*medidas*/
+@media(min-width:800px){
+    .caracteristica p:first-child{
+        font-size: 15px;
+    }
+    .caracteristica p:last-child{
+        font-size: 13px;
+    }
+}
+
+@media(min-width:1024px){
+    main{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    article {
+        margin: 0 5px;
+    }
+    form{
+        margin: 0 5px;
+    }
+}

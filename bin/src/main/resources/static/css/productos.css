@@ -1,0 +1,211 @@
+@import url("header_footer.css");
+
+/*Titulo*/
+main{
+
+    padding: 5px;
+    width: 100%;
+    margin: auto;
+    max-width: 1100px;
+}
+.titulo{
+    display: flex;
+    padding-top: 5px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+
+}
+.titulo h3{
+    padding: 5px;
+}
+/*icono tipo filtro*/
+.titulo .icono-filtro{
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    position: fixed;
+    right: 0px;
+}
+/*sidebar del filtro*/
+.filtros{
+    width: 50%;
+    max-width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transform: translateX(-100%);
+    transition: .4s; 
+    overflow: auto;
+    background: rgb(255, 255, 255);
+    z-index: 4;
+}
+/*cerrar filtro*/
+.cerrar-filtro {
+    color: black;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid black;
+}
+
+/*filtro en específico*/
+.filtro{
+
+    padding: 0px 5px;
+}
+/*titulo del filtro*/
+.filtro h4{
+    padding: 15px 5px;
+    display: flex;
+    justify-content: space-between;
+    background: rgb(255, 255, 255);
+    color:#666;;
+    font-size: 14px;
+
+    border-bottom: 1px solid #666;;
+}
+/*opciones*/
+.filtro-opciones{
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+}
+.filtro-opciones a{
+    text-decoration: none;
+    color: black;
+}
+.filtro-opciones .opcion{
+    padding: 5px 10px;
+}
+
+/*animacion*/
+.mostrar-filtro{
+    transition: .3s;
+}
+.color-opcion{
+    color: blue;
+}
+.rotacion{
+    transform: rotate(180deg);
+    transition: .3s;
+}
+.cerrar-filtro-clase{
+    transform: translateX(0);
+    transition: .4s;
+}
+
+/*productos*/
+.contenedor-productos{
+    padding: 5px;
+      
+}
+.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+.contenedor a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    width: 100%;
+    max-width: 250px;
+    overflow: hidden;
+    transition: all .4s;
+    height:300px;
+    margin: 8px;
+    /*box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);*/
+    /*box-shadow:   0px 1px 8px rgba(0, 0, 0, 0.5);*/
+    
+}
+.contenedor a:hover{
+    transform: translateY(-3px);
+    box-shadow:   0px 5px 8px rgba(145, 144, 144, 0.5);
+    color: black;
+    text-decoration: none;
+}
+.contenedor a img{
+    display: block;
+    width: 100%;
+    height: 65%;
+    margin: auto;
+    
+}
+.contenedor a h5, .contenedor a h6{
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#496b98;
+}
+.contenedor a h6{
+    padding: 0 1px;
+    font-size: 14px;
+    height: 20%;
+}
+.contenedor a h5{
+    margin-bottom: 0;
+    height: 15%;
+    font-size: 20px;
+}
+
+
+.contenedor-paginacion{
+    padding: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paginacion{
+    background: coral;
+    display: flex;
+    border: 1px solid #496b98;
+}
+.paginacion a{
+    background: rgb(255, 255, 255);
+    padding: 10px 15px;
+    border-right: 1px solid #496b98;
+    color: #496b98;
+    text-decoration: none;
+}
+.paginacion a:last-child{
+    border-right: 0;
+}
+
+
+@media(min-width:800px){
+    .titulo{
+        background: white;
+    }
+   
+    .filtros{
+        position: static;
+        transform: translateX(0);
+        overflow: auto;
+        width: 20%;
+        margin: 5px;
+        z-index: 1;
+    }
+    .cerrar-filtro{
+        display: none;
+    }
+    .icono-filtro i{
+        display: none;
+    }
+    .contenedor-flex{
+        display: flex;
+        justify-content: center;
+
+    }
+    .contenedor-productos{
+        width: 100%;
+        margin: 5px 5px 5px 0;
+
+    }
+}

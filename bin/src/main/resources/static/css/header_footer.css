@@ -1,10 +1,10 @@
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 body{
+    max-width: 1800px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
     background: white;
@@ -19,8 +19,7 @@ body{
     z-index: 3;
     transform: translateX(-100%);
     transition: .4s;
-    background: rgba(20, 20, 20, 0.205);
-    backdrop-filter: blur(20px);
+    background:  #2e2e2e;
     visibility: hidden;
     overflow: auto;
 }
@@ -57,16 +56,12 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(245, 245, 245);
-    
+    color: rgb(168, 166, 166);
     
 }
 .login-register a:hover{
     color: white;
     text-decoration: none;
-    background: rgba(19, 193, 172);
-    border-radius: 6px;
-    transition: .3s;
 }
 /*Sidebar parte inferior*/
 .sidebar-abajo{
@@ -98,7 +93,7 @@ body{
     justify-content: flex-start;
     align-items: center;
     max-width: 30px;
-    color: rgb(219, 219, 219);
+    color: rgb(168, 166, 166);
 
 }
 .lista a p{
@@ -107,7 +102,7 @@ body{
     justify-content: flex-start;
     align-items: center;
     padding: 10px 5px;
-    color: rgb(219, 219, 219);
+    color: rgb(168, 166, 166);
     margin-bottom: 0;
 
 }
@@ -120,6 +115,7 @@ body{
 
 /*Header para movil*/
 .header1{
+    max-width: 1800px;
     display: flex;
     width: 100%;
     height: 60px;
@@ -149,12 +145,12 @@ body{
     cursor: pointer;
 }
 .barra i{
-    color:#ff6000;
+    color:#2bbbad;
 }
 /*logo*/
 .logo{
     width: 100%;
-    /*max-width: 120px;*/
+    max-width: 120px;
     display: flex;
     align-items: center;
     height: 100%;
@@ -171,17 +167,17 @@ body{
 }
 .logo h3{
     font-size: 20px;
-    color: #ff6000;
+    color: #2bbbad;
 }
 /*buscador*/
     .mostrar-buscador{
-        width: 50%;
+        width: 100%;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         height: 100%;
         font-size: 18px;
-        color: #ff6000;
+        color: #2bbbad;
     }
     .buscador{
         background: white;
@@ -215,15 +211,8 @@ body{
         font-size: 16px;
         padding: 5px;
     }
-.contenedor-buscador{
-    padding: 10px !important;
-    border-radius: 25px;
-}
-.contenedor-buscador .fas{
-    color: #ff6000;
-    margin-right: 5px !important;
-}    
-
+    
+    
 /*carrito*/
 .carrito{
     padding-left: 5px;
@@ -239,7 +228,7 @@ body{
 }
 .carrito i{
     
-    background:#ff6000;
+    background:#2bbbad;
     padding: 10px;
     border-radius: 50%;
     color: white;
@@ -252,20 +241,11 @@ body{
     height: 100%;
     width: 100%;
     background: black;
-    position: fixed; /* arreglado prro ;) esto y muchas vainitas :v */
+    position: absolute;
     top: 0;
     opacity: .7;
+    filter: blur(1px);
     z-index: 2;
-}
-.overlay::after{
-    content: 'by Almeyda';
-    color: white;
-    position: absolute;
-    z-index: 9000 !important;
-    bottom: 0;
-    right: 0;
-    margin-right: 10px;
-    font-size: 10px;
 }
 .mostrar-overlay{
     display: block;
@@ -300,7 +280,6 @@ body{
 nav{
     height: 60px;
     width: 100%;
-    background:#ff6000;
 }
 
 /*movimiento del header con scroll*/
@@ -309,10 +288,12 @@ nav{
     box-shadow: 0px 0px 5px black;
     transition: .3s;
 }
-
-
-/*--------------- hago lo que chch quiero ok mrd -------------------*/
-
+.sticky2{
+    padding: 0px;
+    box-shadow: 0px 0px 5px black;
+    transition: .3s;
+    background: white;
+}
 
 /*****************************************************/
 @media(min-width:800px){
@@ -338,7 +319,9 @@ nav{
         position: fixed;
         width: 100%;
         transition: .4s;
+        max-width: 1800px;
         z-index: 2;
+        background:white;
     }
     .logo2{
         width: 100%;
@@ -354,9 +337,10 @@ nav{
     }
     .logo2 img{
         display: block;
+        height: 100%;
     }
     .logo2 h3{
-        color: #ffff;
+        color: #2bbbad;
         margin:0;
         font-size: 18px;
     }
@@ -378,7 +362,7 @@ nav{
         align-items: center;
         padding: 5px;
         font-size: 18px;
-        color: #ffff;
+        color: #2bbbad;
         
     }
     .categorias2 i{
@@ -396,24 +380,17 @@ nav{
         position: absolute;
         top: 60px;
         width: 150%;
-        background: #ff6000;
+        background: white;
         display: none;
-        padding: 10PX;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        
     }
     .categorias2-hover a{
         display: flex;
         text-decoration: none;
-        color: #ffff;
+        color: #2bbbad;
     }
     .categorias2-hover a:hover{
         text-decoration: none;
-        color: #ffff;
-        background-color: #fc8c47;
-        border-radius: 5px;
-        transition: all ease-in-out .2s;
+        color: #2bbbad;
     }
     .categorias2-hover a i{
         padding: 7px;
@@ -479,11 +456,11 @@ nav{
     }
     .login-register2 a{
         background: transparent;
-        border: 1px solid #ffff;        
+        border: 1px solid #2bbbad;        
         margin: 2px;
         padding: 10px 8px;
         text-decoration: none;
-        color: #ffff;
+        color: #2bbbad;
         font-size: 14px;
         width: 50%;
         text-align: center;
@@ -491,13 +468,10 @@ nav{
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: ease-in-out .4190s;
-        border-radius: 5px;
     }
     .login-register2 a:hover{
-        color: #ff6000;
+        color: #2bbbad;
         text-decoration: none;
-        background-color: #ffff;
     }
     .carrito2{
         width: 5%;
@@ -508,45 +482,33 @@ nav{
         padding-left: 5px;
         text-decoration: none;
     }
-    .carrito2 i:hover{
+    .carrito2:hover{
         text-decoration: none;
-        background: #0fa091;
-        transition: all .3s;
     }
     .carrito2 i{
         font-size: 18px;
-        background: #ff6000;
+        background: #2bbbad;
         padding: 12px;
         border-radius: 50%;
         color: white;
-        transition: all .3s;
     }
 }
 
 
 /*footer*/
-.contenedor-grupos{
-    background: #3e4551;
-    color: white;
-    width: 100%;
-}
 .grupos{
-    margin: auto;
+    background: #3e4551;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    width: 90%;
-    
-    
+    justify-content: center;
+    color: white;
 }
 .grupo{
     margin: 10px 30px;
-    
 }
 .grupo h5{
-    font-size: 26px;
+    font-size: 16px;
     margin-bottom: 5px;
-    font-weight: 900;
 }
 .grupo p{
     font-size: 12px;
@@ -554,11 +516,11 @@ nav{
 }
 .grupo:nth-child(1){
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
 }
 .grupo:nth-child(2),.grupo:nth-child(3){
     width: 100%;
-    max-width: 250px;
+    max-width: 180px;
 }
 .red{
     display: flex;
@@ -606,11 +568,4 @@ nav{
 
 .color{
     color:rgb(130, 129, 124);
-}
-
-.sticky2{
-    padding: 0px;
-    box-shadow: 0px 0px 5px black;
-    transition: .3s;
-    background: #ff6000;
 }
