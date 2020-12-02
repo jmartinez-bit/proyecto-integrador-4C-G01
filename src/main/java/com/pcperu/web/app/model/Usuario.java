@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +26,8 @@ public class Usuario {
 	@Column(name = "id")
 	private int id;
 	
-	@NotEmpty
 	private String nombres;
 	
-	@NotEmpty
 	private String apellidos;
 	
 	@NotEmpty
@@ -37,14 +37,17 @@ public class Usuario {
 	@Email
 	private String email;
 	
-	@NotEmpty
+	@Enumerated(EnumType.STRING)
+	@Column(name = "auth_provider")
+	private AuthenticationProvider authProvider;
+	
 	@Length(min=5, message="Contraseña debe ser minimo 5 caracteres")
 	private String password;
 	private String telefono;
 	private String direccion;
 	private String status;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
 	private Set<Rol> roles;
 
@@ -127,6 +130,12 @@ public class Usuario {
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
 	}
-	
-	
+
+	public AuthenticationProvider getAuthProvider() {
+		return authProvider;
+	}
+
+	public void setAuthProvider(AuthenticationProvider authProvider) {
+		this.authProvider = authProvider;
+	}
 }

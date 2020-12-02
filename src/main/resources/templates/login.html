@@ -21,14 +21,14 @@
          </div>
          <div class="input-contenedor">
         <i class="fas fa-key icon"></i>
-         <input type="password" placeholder="Contraseña">
+         <input type="password" name="password" placeholder="Contraseña">
          </div>
          <div align="center" th:if="${param.error}">
             <p style="font-size: 20; color: #FF1C19; margin-bottom: 10px;">Correo o contraseña invalido</p>
         </div>
          <div class="social-container">
             <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a th:href="@{/oauth2/authorization/google}" class="social"><i class="fab fa-google-plus-g"></i></a>
           </div>
          <input type="submit" value="Ingresar" class="button">
          <p>Al registrarte, aceptas nuestras Condiciones de uso y Política de privacidad.</p>

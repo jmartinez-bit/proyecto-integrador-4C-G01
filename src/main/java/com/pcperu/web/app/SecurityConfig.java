@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.pcperu.web.app.oauth.OAuth2LoginSuccessHandler;
+import com.pcperu.web.app.oauth.UsuarioOauth2UsuarioService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -43,18 +46,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+				.antMatchers("/oauth2/**").permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/register").permitAll()
 				.antMatchers("/home/**").hasAnyAuthority("USER", "ADMIN")
 				.anyRequest().authenticated()
 				.and()
-				.csrf().disable().formLogin()
-				.loginPage("/login")
-				.failureUrl("/login?error=true")
-				.defaultSuccessUrl("/home")
-				.usernameParameter("email")
-				.passwordParameter("password")
+					.csrf().disable().formLogin()
+					.loginPage("/login")
+					.failureUrl("/login?error=true")
+					.defaultSuccessUrl("/home")
+					.usernameParameter("email")
+					.passwordParameter("password")
+				.and()
+					.oauth2Login()
+					.loginPage("/login")
+					.defaultSuccessUrl("/home")
+					.userInfoEndpoint().userService(oauth2UsuarioService)
+					.and()
+					.successHandler(oAuth2LoginSuccessHandler)
 				.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -63,5 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.accessDeniedPage("/acces-denied");
 	}
 	
+	@Autowired
+	private UsuarioOauth2UsuarioService oauth2UsuarioService;
 	
+	@Autowired
+	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 }
