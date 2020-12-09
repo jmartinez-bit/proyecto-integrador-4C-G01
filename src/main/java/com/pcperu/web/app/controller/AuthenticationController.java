@@ -30,7 +30,7 @@ public class AuthenticationController {
 		return "register";
 	}
 	
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String home() {
 		return "home";
 	}
