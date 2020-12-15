@@ -7,12 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -29,8 +31,7 @@ public class Usuario {
 	private String nombres;
 	
 	private String apellidos;
-	
-	@NotEmpty
+
 	private String username;
 	
 	@NotEmpty
@@ -46,6 +47,9 @@ public class Usuario {
 	private String telefono;
 	private String direccion;
 	private String status;
+	
+	@OneToMany(mappedBy = "usuarioId", fetch = FetchType.EAGER)
+	private Set<Producto> productos;
 	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))

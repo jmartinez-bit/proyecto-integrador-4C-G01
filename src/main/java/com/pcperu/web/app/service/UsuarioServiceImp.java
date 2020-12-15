@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pcperu.web.app.model.AuthenticationProvider;
 import com.pcperu.web.app.model.Rol;
@@ -14,6 +15,7 @@ import com.pcperu.web.app.repository.RolRepository;
 import com.pcperu.web.app.repository.UsuarioRepository;
 
 @Service
+@Transactional
 public class UsuarioServiceImp implements UsuarioService {
 
 	@Autowired
@@ -66,6 +68,16 @@ public class UsuarioServiceImp implements UsuarioService {
 	public void actualizarUsuarioOAuth(Usuario usuario, String name, AuthenticationProvider provider) {
 		usuario.setUsername(name);
 		usuario.setAuthProvider(provider);
+		usuarioRepository.save(usuario);
+	}
+
+	@Override
+	public void registrarAdmin(Usuario usuario) {
+		usuario.setPassword(encoder.encode(usuario.getPassword()));
+		usuario.setStatus("VERIFIED");
+		Rol usuarioRol = rolRepository.findByNombre("USER");
+		Rol adminRol = rolRepository.findByNombre("ADMIN");
+		usuario.setRoles(new HashSet<Rol>(Arrays.asList(usuarioRol, adminRol)));
 		usuarioRepository.save(usuario);
 	}
 

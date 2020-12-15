@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,15 +14,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.pcperu.web.app.config.CustomLoginSuccessHandler;
 import com.pcperu.web.app.oauth.OAuth2LoginSuccessHandler;
 import com.pcperu.web.app.oauth.UsuarioOauth2UsuarioService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private CustomLoginSuccessHandler successHandler;
 	
 	@Autowired
 	private DataSource dataSource;
@@ -46,30 +52,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/oauth2/**").permitAll()
-				.antMatchers("/").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/register").permitAll()
+				.antMatchers("/oauth2/**", "/login", "/", "/register", "/register2").permitAll()
 				.antMatchers("/home/**").hasAnyAuthority("USER", "ADMIN")
+				.antMatchers("/admin/**").hasAnyAuthority("ADMIN")
 				.anyRequest().authenticated()
 				.and()
-					.csrf().disable().formLogin()
+					.formLogin()
 					.loginPage("/login")
 					.failureUrl("/login?error=true")
-					.defaultSuccessUrl("/")
+					.successHandler(successHandler)
 					.usernameParameter("email")
 					.passwordParameter("password")
 				.and()
 					.oauth2Login()
 					.loginPage("/login")
-					.defaultSuccessUrl("/")
+					.successHandler(successHandler)
 					.userInfoEndpoint().userService(oauth2UsuarioService)
 					.and()
 					.successHandler(oAuth2LoginSuccessHandler)
 				.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/").and()
+				.logoutSuccessUrl("/").permitAll()
+				.deleteCookies("JSESSIONID").and()
 				.exceptionHandling()
 				.accessDeniedPage("/acces-denied");
 	}

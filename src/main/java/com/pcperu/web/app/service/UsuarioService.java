@@ -7,6 +7,8 @@ public interface UsuarioService {
 	
 	public void registrarUsuario(Usuario usuario);
 	
+	public void registrarAdmin(Usuario usuario);
+	
 	public boolean usuarioExiste(Usuario usuario);
 	
 	public Usuario obtenerUsuario(String email);
