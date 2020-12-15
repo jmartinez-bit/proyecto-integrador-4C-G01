@@ -12,20 +12,9 @@
 			</div></a>
 		<h1>Registrate</h1>
 		<div class="contenedor">
-
-			<div class="input-contenedor">
-				<i class="fas fa-user icon"></i> <input type="text"
-					th:field="*{nombres}" placeholder="Nombre"> <small
-					class="form-text text-danger"
-					th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></small>
-			</div>
-			<div class="input-contenedor">
-				<i class="fas fa-user icon"></i> <input type="text"
-					th:field="*{apellidos}" placeholder="Ingrese Apellidos"> <small
-					class="form-text text-danger"
-					th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
-			</div>
-
+			<!-- Control ataque csrf -->
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<!-- fin Control ataque csrf -->
 			<div class="input-contenedor">
 				<i class="fas fa-user icon"></i> <input type="text"
 					th:field="*{username}" placeholder="Ingrese Nombre de Usuario">

@@ -4,8 +4,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/home_layout :: head"></head>
 <body>
 	<nav th:replace="fragments/home_layout :: nav"></nav>
-	hello User
+	hello Admin!
 	<h5 class="card-title" sec:authorize="isAuthenticated()">Hola <span sec:authentication="name"></span></h5>
 	<div th:replace="fragments/home_layout :: scripts"></div>
+	<a th:href="@{/admin/productos}">Listado de productos</a>
 </body>
 </html>

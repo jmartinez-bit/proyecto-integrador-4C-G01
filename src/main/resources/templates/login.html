@@ -1,39 +1,68 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: head">
+</head>
+<style>
+.alert-message {
+	margin: 0;
+}
 
-
-</head>  
+.alert {
+	position: absolute;
+	top: 0%;
+	width: 100%;
+}
+</style>
 <body>
-    <form class="formulario" th:action="@{/login}" method="POST">
-        <a href="index.html" class="logo">
-        <div align="center">
-        	<img th:src="@{/img/logo.png}" class="avatar" alt="Avatar Image" width="60" >
-        </div>
-        </a>
-    <h1>Login</h1>
-     <div class="contenedor">
-     
-         <div class="input-contenedor">
-         <i class="fas fa-envelope icon"></i>
-         <input type="text" name="email" placeholder="Correo Electronico">
-         
-         </div>
-         <div class="input-contenedor">
-        <i class="fas fa-key icon"></i>
-         <input type="password" name="password" placeholder="Contraseña">
-         </div>
-         <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19; margin-bottom: 10px;">Correo o contraseña invalido</p>
-        </div>
-         <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a th:href="@{/oauth2/authorization/google}" class="social"><i class="fab fa-google-plus-g"></i></a>
-          </div>
-         <input type="submit" value="Ingresar" class="button">
-         <p>Al registrarte, aceptas nuestras Condiciones de uso y Política de privacidad.</p>
-         <p>No tienes una cuenta? <a class="link" href="register.html">Registrate </a></p>
-     </div>
-    </form>
+	<div th:if="${successMessage}"
+		class="alert alert-success alert-dismissible fade show" role="alert">
+		<p th:text="${successMessage}" class="alert-message"></p>
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
+	<form class="formulario" th:action="@{/login}" method="POST">
+		<a href="index.html" class="logo">
+			<div align="center">
+				<img th:src="@{/img/logo.png}" class="avatar" alt="Avatar Image"
+					width="60">
+			</div>
+		</a>
+		<h1>Login</h1>
+		<div class="contenedor">
+			<!-- Control ataque csrf -->
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<!-- fin Control ataque csrf -->
+			<div class="input-contenedor">
+				<i class="fas fa-envelope icon"></i> <input type="text" name="email"
+					placeholder="Correo Electronico">
+
+			</div>
+			<div class="input-contenedor">
+				<i class="fas fa-key icon"></i> <input type="password"
+					name="password" placeholder="Contraseña">
+			</div>
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19; margin-bottom: 10px;">Correo
+					o contraseña invalido</p>
+			</div>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
+					th:href="@{/oauth2/authorization/google}" class="social"><i
+					class="fab fa-google-plus-g"></i></a>
+			</div>
+			<input type="submit" value="Ingresar" class="button">
+			<p>Al registrarte, aceptas nuestras Condiciones de uso y Política
+				de privacidad.</p>
+			<p>
+				No tienes una cuenta? <a class="link" th:href="@{/register}">Registrate
+				</a>
+			</p>
+			<br>
+			<p>
+				<a class="link" th:href="@{/register2}">Vender Componentes</a>
+			</p>
+		</div>
+	</form>
+	<div th:replace="fragments/layout :: scripts"></div>
 </body>
 </html>
