@@ -1,5 +1,8 @@
 package com.pcperu.web.app.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,9 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Producto {
@@ -27,11 +35,13 @@ public class Producto {
 	private String foto;
 	
 	@NotEmpty
+	@Type(type = "text")
 	private String descripcion;
 	
-	@NotEmpty
+	@NotNull
 	private String estado;
 	
+	@NotNull
 	@Min(value = 0)
 	private int stock;
 	
@@ -39,8 +49,16 @@ public class Producto {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuarioId;
 
+	@NotNull
+	@NotEmpty
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "producto_categoria", joinColumns = @JoinColumn(name = "producto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private Set<Categoria> categorias;
+
 	public Producto(@NotEmpty String nombre, @Min(0) float precioVenta, String foto, @NotEmpty String descripcion,
-			@NotEmpty String estado, @Min(0) int stock, Usuario usuarioId) {
+			@NotNull String estado, @NotNull @Min(0) int stock, Usuario usuarioId,
+			@NotNull @NotEmpty Set<Categoria> categorias) {
+		super();
 		this.nombre = nombre;
 		this.precioVenta = precioVenta;
 		this.foto = foto;
@@ -48,6 +66,7 @@ public class Producto {
 		this.estado = estado;
 		this.stock = stock;
 		this.usuarioId = usuarioId;
+		this.categorias = categorias;
 	}
 
 	public Producto() {
@@ -115,6 +134,14 @@ public class Producto {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public Set<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(Set<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	
 }

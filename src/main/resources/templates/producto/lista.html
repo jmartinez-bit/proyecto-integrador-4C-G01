@@ -12,7 +12,16 @@
 </head>
 <body>
 	<nav th:replace="fragments/home_layout :: nav"></nav>
+	<div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+	  <strong th:text="${error}"></strong>
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
 	<main class="mt-5">
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+			<a th:href="@{/admin/productos/nuevo}" class="btn btn-primary">Nuevo producto</a>
+		</div>
 		<div class="contenedor-flex">
 			<div class="filtros">
 				<div class="cerrar-filtro">
@@ -70,7 +79,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="producto: ${productos}">
-							<th th:text="${producto.nombre}"></th>
+							<th><a th:href="@{/admin/productos/detalle/} + ${producto.id}" th:text="${producto.nombre}"></a></th>
 							<td th:text="${producto.precioVenta}"></td>
 							<td th:text="${producto.estado}"></td>
 							<td th:text="${producto.stock}"></td>

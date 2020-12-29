@@ -1,18 +1,19 @@
 package com.pcperu.web.app.service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pcperu.web.app.model.Categoria;
 import com.pcperu.web.app.model.Producto;
 import com.pcperu.web.app.model.Usuario;
+import com.pcperu.web.app.repository.CategoriaRepository;
 import com.pcperu.web.app.repository.ProductoRepository;
-import com.pcperu.web.app.repository.UsuarioRepository;
 
 @Service
 @Transactional
@@ -23,6 +24,9 @@ public class ProductoServiceImp implements ProductoService{
 	
 	@Autowired
 	UsuarioServiceImp usuarioService;
+	
+	@Autowired
+	CategoriaRepository categoriaRepository;
 	
 	@Override
 	public List<Producto> list(String nombre) {
@@ -41,7 +45,8 @@ public class ProductoServiceImp implements ProductoService{
 	}
 
 	@Override
-	public void save(Producto producto) {
+	public void save(Producto producto, String email) {
+		producto.setUsuarioId(usuarioService.obtenerUsuario(email));
 		productoRepository.save(producto);
 	}
 
@@ -56,8 +61,15 @@ public class ProductoServiceImp implements ProductoService{
 	}
 
 	@Override
-	public boolean existsByNombre(String nombre) {
-		return productoRepository.existsByNombre(nombre);
+	public boolean existsByNombre(String nombre, String emailUsuario) {
+		Usuario usuario = usuarioService.obtenerUsuario(emailUsuario);
+		return productoRepository.existsByNombreAndUsuarioId(nombre, usuario);
+	}
+
+	@Override
+	public boolean existsById(int id, String emailUsuario) {
+		Usuario usuario = usuarioService.obtenerUsuario(emailUsuario);
+		return productoRepository.existsByIdAndUsuarioId(id, usuario);
 	}
 
 }

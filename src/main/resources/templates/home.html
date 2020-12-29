@@ -4,8 +4,16 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/home_layout :: head"></head>
 <body>
 	<nav th:replace="fragments/home_layout :: nav"></nav>
-	hello User
-	<h5 class="card-title" sec:authorize="isAuthenticated()">Hola <span sec:authentication="name"></span></h5>
+	<!-- hello User
+	<h5 class="card-title" sec:authorize="isAuthenticated()">Hola <span sec:authentication="name"></span><br>
+	Roles: <span sec:authentication="principal.authorities"></span></h5> -->
+	<div th:replace="fragments/home_layout :: contenedor-grid"></div>
+	<section th:replace="fragments/home_layout :: lista-social"></section>
+	<div th:replace="fragments/home_layout :: contenedor-categorias"></div>
+	<aside th:replace="fragments/home_layout :: aside"></aside>
+	<footer th:replace="fragments/home_layout :: footer"></footer>
+	<div th:replace="fragments/home_layout :: overlay"></div>
+	<div th:replace="fragments/home_layout :: btn-cerrar"></div>
 	<div th:replace="fragments/home_layout :: scripts"></div>
 </body>
 </html>

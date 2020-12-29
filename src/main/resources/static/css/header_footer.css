@@ -310,11 +310,6 @@ nav{
     transition: .3s;
 }
 
-
-/*--------------- hago lo que chch quiero ok mrd -------------------*/
-
-
-/*****************************************************/
 @media(min-width:800px){
     .sidebar{
         display: none;

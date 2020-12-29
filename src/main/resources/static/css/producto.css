@@ -21,15 +21,16 @@ article img{
 }
 /*****************/
 /*form*/
-form{
+.super-contenedor form{
     background: white;
     padding: 5px;
     max-width: 525px;
     margin-top: 10px;
     height: auto;
+    width: 100%;
 }
 /*estrellas*/
-form h5{
+.super-contenedor form h5{
     width: 100%;
     margin-bottom: 0;
     display: flex;
@@ -37,7 +38,7 @@ form h5{
     align-items: center;
     padding: 5px;
 }
-form h5 i{
+.super-contenedor form h5 i{
     font-size: 22px;
     margin-left: 2px;
     margin-right: 2px;
@@ -45,22 +46,23 @@ form h5 i{
 }
 /**********/
 /*Nombre*/
-form h6{
+.super-contenedor form h6{
     margin-bottom: 0;
     font-size: 14px;
     padding: 5px;
     text-align: center;
     font-size: 16px;
+    font-weight: 600;
 }
 /*precio - cantidad*/
-form section{
+.super-contenedor form section{
     margin-top: 5px;
     width: 100%;
     display: flex;
     padding: 5px;
     justify-content: space-between;
 }
-form section{
+.super-contenedor form section{
     padding: 0;
     height: 30px;
 }
@@ -74,8 +76,8 @@ form section{
     color:#496b98;
 }
 .rigth{
-    width: 20%;
-    max-width: 90px;
+    /*width: 20%;
+    max-width: 90px;*/
     height: 100%;
     color:#496b98;
 

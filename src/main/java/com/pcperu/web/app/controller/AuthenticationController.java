@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pcperu.web.app.model.Usuario;
 import com.pcperu.web.app.service.UsuarioService;
@@ -40,7 +41,7 @@ public class AuthenticationController {
 	
 	@GetMapping("/admin")
 	public String adminHome() {
-		return "admin";
+		return "redirect:/admin/productos";
 	}
 
 	@PreAuthorize("!isAuthenticated()")
@@ -68,15 +69,15 @@ public class AuthenticationController {
 
 	@PreAuthorize("!isAuthenticated()")
 	@PostMapping("/register2")
-	public String registerAdmin(@Valid Usuario usuario, BindingResult result, Model model) {
+	public String registerAdmin(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes flash) {
 		if(result.hasErrors()) {
 			model.addAttribute("successMessage", "Por favor corrige los errores del formulario");
 		}else if(usuarioService.usuarioExiste(usuario)){
 			model.addAttribute("successMessage", "Usuario ya existe");
 		}else {
 			usuarioService.registrarAdmin(usuario);
-			model.addAttribute("successMessage", "Cuenta registrada satisfactoriamente, Inicia Sesión!");
-			return "login";
+			flash.addFlashAttribute("successMessage", "Cuenta registrada satisfactoriamente, Inicia Sesión!");
+			return "redirect:/login";
 		}
 		return "register2";
 	}

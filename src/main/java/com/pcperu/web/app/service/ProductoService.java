@@ -13,12 +13,14 @@ public interface ProductoService {
 	
 	public Optional<Producto> getByNombre(String nombre);
 	
-	public void save(Producto producto);
+	public void save(Producto producto, String email);
 	
 	public void delete(int id);
 	
 	public boolean existsById(int id);
 	
-	public boolean existsByNombre(String nombre);
+	public boolean existsByNombre(String nombre, String emailUsuario);
+	
+	public boolean existsById(int id, String emailUsuario);
 	
 }

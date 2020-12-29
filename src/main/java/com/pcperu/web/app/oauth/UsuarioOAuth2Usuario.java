@@ -26,7 +26,7 @@ public class UsuarioOAuth2Usuario implements OAuth2User{
 
 	@Override
 	public String getName() {
-		return oauth2User.getAttribute("name");
+		return oauth2User.getAttribute("email");
 	}
 	
 	public String getFullName() {

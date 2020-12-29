@@ -71,7 +71,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </div>
         <div class="header2">
             <a href="index.html" class="logo2">
-                <img src="../img/logo.png" width="45">
+                <img th:src="@{/img/logo.png}" width="45">
                 <h3>Pc Perú</h3>
             </a>
             <div class="contenedor-categorias2">
@@ -116,12 +116,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <a th:href="@{/login}">Iniciar Sesión</a>
                 <a th:href="@{/register}">Registrarse</a>
             </div>
+            <a href="#" sec:authorize="isAuthenticated()" class="carrito2">
+                <i class="fas fa-user"></i>
+            </a>
             <div class="login-register2" sec:authorize="isAuthenticated()">
-            	<a sec:authorize="hasRole('ROLE_ADMIN')" href="#">Agregar Producto</a>
                 <form sec:authorize="isAuthenticated()" class="d-flex" th:action="@{/logout}" method="post">
-			        <button class="btn btn-danger" type="submit">
-			        	<i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-			        </button>
+			        <button class="btn btn-info" type="submit">Cerrar Sesión</button>
 			    </form>
             </div>
             <a href="#" class="carrito2">
@@ -130,7 +130,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </div>
         <div class="super-contenedor">
     </nav>
-    <div class="contenedor-grid">
+    <div class="contenedor-grid" th:fragment="contenedor-grid">
     <div class="rico-grid">
         <div class="grid1">
             <div class="contenedor-slider">
@@ -177,7 +177,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </div>
     </div>
 </div>
-<section class="lista2 social">
+<section class="lista2 social" th:fragment="lista-social">
     <ul>
         <li><a href="#">
             <i class="fab fa-facebook-f"></i><span>Facebook</span>
@@ -197,7 +197,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     </ul>
 </section>
 
-    <div class="contenedor-categorias3">
+    <div class="contenedor-categorias3" th:fragment="contenedor-categorias">
         <h3>Nuestras Categorías</h3>
         <div class="categorias3">
             <a href="#">
@@ -226,7 +226,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </a>
         </div>
     </div>
-    <aside>
+    <aside th:fragment="aside">
         <article>
             <h4>Lo más vendido</h4>
             <div class="contenedor">
@@ -334,7 +334,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </article>
     </aside>
 
-    <footer class="contenedor-grupos">
+    <footer class="contenedor-grupos" th:fragment="footer">
         <div class="grupos">
             <div class="grupo">
                 <h5><img src="../img/logo.png" width="45"><span>Pc Perú</span> </h5>
@@ -391,18 +391,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </div>
         </div>
     </footer>
-    <div class="overlay"></div>
+    <div class="overlay" th:fragment="overlay"></div>
     </div>
-    <div class="boton-cerrar">
+    <div class="boton-cerrar" th:fragment="btn-cerrar">
         <i class="fas fa-times"></i>
     </div>
 
-    
-</body>
-<div th:fragment="scripts">
+    <div th:fragment="scripts">
 	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/header_footer.js}"></script>
     <script th:src="@{/js/index.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-</div>
+	</div>
+</body>
 </html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/ef09053d88.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/productos.css}">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<title>Pc Perú</title>
+</head>
+<body>
+	<nav th:replace="fragments/home_layout :: nav"></nav>
+	<main class="mt-5">
+		<div class="container">
+			<form th:action="@{/admin/productos/guardar}" th:object="${producto}" method="POST" enctype="multipart/form-data">
+				<!-- Control ataque csrf -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				<!-- fin Control ataque csrf -->
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre del Producto</label>
+					<input 
+						type="text" 
+						class="form-control" 
+						th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : ''}" 
+						th:field="*{nombre}" id="nombre" 
+						aria-describedby="nombre">
+					<div 
+						id="nombre" 
+						class="invalid-feedback" 
+						th:if="${#fields.hasErrors('nombre')}" 
+						th:errors="*{nombre}"></div>
+				</div>
+				<div class="mb-3">
+					<label for="descripcion" class="form-label">Descripción del producto</label>
+					<textarea 
+						class="form-control" 
+						th:classappend="${#fields.hasErrors('descripcion') ? 'is-invalid' : ''}" 
+						th:field="*{descripcion}" 
+						placeholder="Ingrese una descripción para el producto nuevo" 
+						id="descripcion" 
+						style="height: 100px" 
+						aria-describedby="descripcion"></textarea>
+					<div 
+						id="descripcion" 
+						class="invalid-feedback" 
+						th:if="${#fields.hasErrors('descripcion')}" 
+						th:errors="*{descripcion}"></div>
+				</div>
+				<div class="mb-3">
+					<label for="estadoProducto" class="form-label">Estado del producto: &nbsp</label>
+					<div class="form-check form-check-inline">
+						<input 
+							class="form-check-input" 
+							type="radio" 
+							th:field="*{estado}" 
+							id="estado" 
+							value="nuevo">
+	  					<label class="form-check-label" for="estado">Nuevo</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input 
+							class="form-check-input" 
+							type="radio" 
+							th:field="*{estado}" 
+							id="estado2" 
+							value="usado">
+	  					<label class="form-check-label" for="estado2">Usado</label>
+					</div>
+					<small 
+						id="estado" 
+						class="text-danger" 
+						th:if="${#fields.hasErrors('estado')}" 
+						th:errors="*{estado}"></small>
+				</div>
+				<div class="mb-3 form-inline">
+					<label for="precioVenta" class="form-label">Precio de venta</label>
+					<div class="input-group col-sm-3">
+					  <span class="input-group-text">$</span>
+					  <span class="input-group-text">0.00</span>
+					  <input 
+					  	type="number" 
+					  	step="0.01" 
+					  	class="form-control" 
+					  	th:field="*{precioVenta}" 
+					  	id="precioVenta" required>
+					</div>
+				</div>
+				<div class="mb-3 form-inline">
+					<label for="stock" class="form-label">Stock: &nbsp</label>
+					<input 
+						type="number" 
+						class="form-control" 
+						th:field="*{stock}" 
+						id="stock" 
+						placeholder="Cantidad de productos" required>
+					<div 
+						id="stock" 
+						class="invalid-feedback" 
+						th:if="${#fields.hasErrors('stock')}" 
+						th:errors="*{stock}"></div>
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group">
+					  <div class="input-group-prepend">
+					    <label class="input-group-text" for="categorias">Categorias</label>
+					  </div>
+					  <select class="custom-select" th:field="*{categorias}" id="categorias">
+					    <option value="">Seleccione una categoria</option>
+					    <option th:each="categoria :${categoriasLista}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+					  </select>
+					</div>
+					<small 
+						id="categorias" 
+						class="text-danger" 
+						th:if="${#fields.hasErrors('categorias')}" 
+						th:errors="*{categorias}"></small>
+				</div>
+				<div class="mb-3">
+				  <div class="custom-file">
+				    <input type="file" class="custom-file-input" name="file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+				    <label class="custom-file-label" for="inputGroupFile01">Subir imagen del producto</label>
+				  </div>
+				</div>
+				<button type="submit" class="btn btn-primary">Guardar producto</button><br><br>
+				<span th:utext="${error}" class="text-danger"></span>
+			</form>
+		</div>
+	</main>
+	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script th:src="@{/js/header_footer.js}"></script>
+	<script th:src="@{/js/productos.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

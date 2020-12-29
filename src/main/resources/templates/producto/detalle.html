@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/producto.css}">
+    <script src="https://kit.fontawesome.com/ef09053d88.js" crossorigin="anonymous"></script>
+    <title>Producto</title>
+</head>
+<body>
+	<nav th:replace="fragments/home_layout :: nav"></nav>
+    <div class="super-contenedor">
+    <div style="background: #ECEFF1;padding: 10px 0 0 10px;">
+    	<a th:href="@{/admin/productos}"><i class="fas fa-angle-left"></i> Volver al listado</a>
+    </div>
+        <main>
+            <article>
+                <img th:if="${producto.foto != null && #strings.length(producto.foto) > 0}" th:src="@{'/admin/productos/uploads/' + ${producto.foto}}" alt="">
+                <img th:if="${producto.foto == null}" th:src="@{/img/camara.png}">
+            </article>
+            <form>
+                <h6 th:text="${producto.nombre}"></h6>
+                <section>
+                    <div class="left" th:text="'S/. ' + ${producto.precioVenta}"></div>
+                    <div class="rigth" th:text="'Estado: ' + ${producto.estado}"></div>
+                </section>
+                <div class="tienda">
+                    <p th:text="'Vendedor: ' + ${producto.usuarioId.nombres} + ' ' + ${producto.usuarioId.apellidos}"></p>
+                </div>
+                <div class="tienda">
+                    <p th:if="${producto.stock > 0}" th:text="'En stock: ' + ${producto.stock} + ' items'"></p>
+                    <p th:if="${producto.stock == 0}">Producto Agotado</p>
+                </div>
+                <div class="tienda">
+                	Categorias &nbsp
+                	<th:block th:each="categoria: ${producto.categorias}">
+                		<p th:text="${categoria.nombre}"></p>
+                    </th:block>
+                </div>
+                <div class="contenedor-caracteristicas">
+                    <div class="desplegador">
+                        <p>Características</p>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="caracteristicas">
+                        <div class="caracteristica">
+                            <p th:text="${producto.descripcion}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="botones" sec:authorize="!hasAuthority('ADMIN')">
+                    <input type="submit" value="Añadir al carrito" id="carrito">
+                    <button>Ver otros vendedores</button>
+                </div>
+                <div class="botones" sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{'/admin/productos/editar/' + ${producto.id}}" class="btn btn-secondary">Editar Producto</a>&nbsp&nbsp
+                    <a th:href="@{'/admin/productos/borrar/' + ${producto.id}}" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar')">Eliminar producto</a>
+                </div>
+            </form>
+        </main>
+        
+    
+        <footer>
+            <div class="grupos">
+                <div class="grupo">
+                    <h5>Pc Perú</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni explicabo voluptate hic, tenetur tempore </p>
+                </div>
+                <div class="grupo">
+                    <h5>Nuestras redes</h5>
+                    <div class="redes">
+                        <div class="red">
+                            <i class="fab fa-facebook-square"></i>
+                            <p>Siguenos en Facebook</p>
+                        </div>
+                        <div class="red">
+                            <i class="fab fa-instagram"></i>
+                            <p>Siguenos en Instagram</p>
+                        </div>
+                        <div class="red">
+                            <i class="fab fa-twitter"></i>
+                            <p>Siguenos en Twitter</p>
+                        </div>
+                        <div class="red">
+                            <i class="fab fa-google-plus"></i>
+                            <p>Siguenos en google plus</p>
+                        </div>
+                        <div class="red">
+                            <i class="fab fa-pinterest"></i>
+                            <p>Siguenos en Pinterest</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grupo">
+                    <h5>Contáctenos</h5>
+                    <div class="contactos">
+                        <div class="contacto">
+                            <i class="fas fa-home"></i>
+                            <div class="direcciones">
+                                <div class="direccion">Perú</div>
+                                <div class="direccion">Lima</div>
+                                <div class="direccion">Santa Anita</div>
+                                <div class="direccion">Tecsup</div>
+                            </div>
+                        </div>
+                        <div class="contacto">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p> 987744870</p>
+                        </div>
+                        <div class="contacto">
+                            <i class="far fa-envelope"></i>
+                            <p>direccion de correo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="overlay"></div>
+    </div>
+    <div class="boton-cerrar">
+        <i class="fas fa-times"></i>
+    </div>
+
+	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/header_footer.js}"></script>
+	<script th:src="@{/js/producto.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
