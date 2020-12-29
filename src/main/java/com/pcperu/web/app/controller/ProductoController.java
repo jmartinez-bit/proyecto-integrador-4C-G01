@@ -9,6 +9,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,6 +33,7 @@ import com.pcperu.web.app.model.Producto;
 import com.pcperu.web.app.service.CategoriaService;
 import com.pcperu.web.app.service.IUploadFileService;
 import com.pcperu.web.app.service.ProductoService;
+import com.pcperu.web.app.util.paginator.PageRender;
 
 @Controller
 @RequestMapping("/admin/productos")
@@ -46,13 +50,15 @@ public class ProductoController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping({"/", ""})
-	public String list(Model model) {
-		
+	public String list(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Pageable pageRequest = PageRequest.of(page, 5);
 		
 		if(auth != null) {
-			List<Producto> productos = productoService.list(auth.getName());
+			Page<Producto> productos = productoService.list(pageRequest, auth.getName());
+			PageRender<Producto> pageRender = new PageRender<>("/admin/productos/", productos);
 			model.addAttribute("productos", productos);
+			model.addAttribute("page", pageRender);
 		}
 		return "/producto/lista";
 	}

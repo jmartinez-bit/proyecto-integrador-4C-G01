@@ -177,7 +177,9 @@ main{
 .paginacion a:last-child{
     border-right: 0;
 }
-
+.nav-pag {
+	background: none;
+}
 
 @media(min-width:800px){
     .titulo{

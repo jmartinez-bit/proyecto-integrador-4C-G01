@@ -3,11 +3,16 @@ package com.pcperu.web.app.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.pcperu.web.app.model.Producto;
 
 public interface ProductoService {
 
 	public List<Producto> list(String nombre);
+	
+	public Page<Producto> list(Pageable pageable, String nombre);
 	
 	public Optional<Producto> getOne(int id);
 	

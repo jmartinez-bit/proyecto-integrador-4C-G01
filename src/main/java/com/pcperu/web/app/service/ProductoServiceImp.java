@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +72,13 @@ public class ProductoServiceImp implements ProductoService{
 	public boolean existsById(int id, String emailUsuario) {
 		Usuario usuario = usuarioService.obtenerUsuario(emailUsuario);
 		return productoRepository.existsByIdAndUsuarioId(id, usuario);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Producto> list(Pageable pageable, String nombre) {
+		Usuario usuario = usuarioService.obtenerUsuario(nombre);
+		return productoRepository.findByUsuarioId(pageable, usuario);
 	}
 
 }
