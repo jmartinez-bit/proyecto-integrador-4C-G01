@@ -47,7 +47,10 @@ public class AuthenticationController {
 	@PreAuthorize("!isAuthenticated()")
 	@PostMapping("/register")
 	public String registerUser(@Valid Usuario usuario, BindingResult result, Model model) {
-		if(result.hasErrors()) {
+		
+		if(usuario.getUsername().isBlank()){
+			model.addAttribute("error", "El nombre de usuario es requerido");
+		}else if(result.hasErrors()) {
 			model.addAttribute("successMessage", "Por favor corrige los errores del formulario");
 		}else if(usuarioService.usuarioExiste(usuario)){
 			model.addAttribute("successMessage", "Usuario ya existe");
@@ -70,6 +73,18 @@ public class AuthenticationController {
 	@PreAuthorize("!isAuthenticated()")
 	@PostMapping("/register2")
 	public String registerAdmin(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes flash) {
+		if(usuario.getNombres().isBlank()) {
+			model.addAttribute("errorNombre", "El nombre es requerido");
+		}
+		if(usuario.getApellidos().isBlank()) {
+			model.addAttribute("errorApellido", "El apellido es requerido");
+		}
+		if(usuario.getTelefono().isBlank()) {
+			model.addAttribute("errorTelefono", "El telefono es requerido");
+		}
+		if(usuario.getDireccion().isBlank()) {
+			model.addAttribute("errorDireccion", "La direccion es requerida");
+		}
 		if(result.hasErrors()) {
 			model.addAttribute("successMessage", "Por favor corrige los errores del formulario");
 		}else if(usuarioService.usuarioExiste(usuario)){

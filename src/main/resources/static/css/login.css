@@ -202,10 +202,10 @@ p{
 .social-container a  {
 	border: 1px solid #DDDDDD;
 	border-radius: 50%;
-	display: inline-flex;
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 90px;
+	margin: 0 auto;
 	height: 40px;
 	width: 40px;
 	transition: all ease-in-out .4s;
