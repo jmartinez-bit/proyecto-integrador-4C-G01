@@ -123,6 +123,7 @@
 				    <input type="file" class="custom-file-input" name="file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 				    <label class="custom-file-label" for="inputGroupFile01">Subir imagen del producto</label>
 				  </div>
+				  <small th:if="${errorFoto}" class="text-danger" th:text="${errorFoto}"></small>
 				</div>
 				<button type="submit" class="btn btn-primary">Actualizar producto</button><br><br>
 				<span th:utext="${error}" class="text-danger"></span>

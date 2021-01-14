@@ -106,32 +106,17 @@ public class ProductoController {
 			
 			flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFileName + "'");
 			producto.setFoto(uniqueFileName);
+		}else if(foto.isEmpty()){
+			model.addAttribute("errorFoto", "Ingrese una foto para el producto"); 
+			return "/producto/nuevo";
 		}
 		
 		productoService.save(producto, auth.getName());
 		return "redirect:/admin/productos";
 	}
 	
-	@GetMapping(value = "/uploads/{filename:.+}")
-	public ResponseEntity<Resource> vistaFoto(@PathVariable String filename) {
-		
-		Resource recurso = null;
-		try {
-			recurso = uploadFileService.load(filename);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ recurso.getFilename() + "\"")
-				.body(recurso);
-	}
-	
 	@GetMapping("/detalle/{id}")
 	public String detalle(@PathVariable("id") int id, Map<String, Object> model, RedirectAttributes flash) {
-		List<Categoria> categorias = categoriaService.list();
-		model.put("categoriasLista", categorias);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null) {			
 			if(!productoService.existsById(id, auth.getName())) {
@@ -203,6 +188,9 @@ public class ProductoController {
 			
 			flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFileName + "'");
 			producto.setFoto(uniqueFileName);
+		}else if(foto.isEmpty()){
+			model.addAttribute("errorFoto", "Ingrese una foto para el producto"); 
+			return "/producto/editar";
 		}
 		 
 		productoService.save(producto, auth.getName());

@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pcperu.web.app.model.Usuario;
+import com.pcperu.web.app.repository.UsuarioRepository;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -21,10 +22,13 @@ public class UsuarioServiceTest {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	@Test
 	public void testRegistrarUsuario() {
-		String USERNAME = "JSanches";
-		String EMAIL = "jsanches@correo.com";
+		String USERNAME = "JSanchess";
+		String EMAIL = "jsanchess@correo.com";
 		String PASS = "12345";
 		
 		Usuario usuario = new Usuario();
@@ -39,5 +43,7 @@ public class UsuarioServiceTest {
 		assertThat(usuario.getId()).isNotNull();
 		assertEquals(USERNAME, usuario.getUsername());
 		assertEquals(EMAIL, usuario.getEmail());
+		
+		usuarioRepository.delete(usuario);
 	}
 }

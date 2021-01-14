@@ -1,7 +1,5 @@
 package com.pcperu.web.app.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pcperu.web.app.model.Categoria;
 import com.pcperu.web.app.model.Producto;
 import com.pcperu.web.app.model.Usuario;
 import com.pcperu.web.app.repository.CategoriaRepository;
@@ -79,6 +76,22 @@ public class ProductoServiceImp implements ProductoService{
 	public Page<Producto> list(Pageable pageable, String nombre) {
 		Usuario usuario = usuarioService.obtenerUsuario(nombre);
 		return productoRepository.findByUsuarioId(pageable, usuario);
+	}
+
+	@Override
+	public List<Producto> getProductosFavoritos() {
+		return productoRepository.findFirst6ByOrderByIdDesc();
+	}
+
+	@Override
+	public List<Producto> getProductosExtra() {
+		return productoRepository.findFirst6ByOrderById();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Producto> list(Pageable pageable) {
+		return productoRepository.findAll(pageable);
 	}
 
 }

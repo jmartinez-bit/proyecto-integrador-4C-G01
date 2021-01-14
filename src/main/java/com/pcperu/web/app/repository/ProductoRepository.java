@@ -19,4 +19,6 @@ public interface ProductoRepository extends PagingAndSortingRepository<Producto,
 	boolean existsByIdAndUsuarioId(int id, Usuario usuario);
 	List<Producto> findByUsuarioId(Usuario usuario);
 	Page<Producto> findByUsuarioId(Pageable pageable,Usuario usuario);
+	List<Producto> findFirst6ByOrderByIdDesc();
+	List<Producto> findFirst6ByOrderById();
 }

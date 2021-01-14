@@ -13,11 +13,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<nav th:replace="fragments/home_layout :: nav"></nav>
     <div class="super-contenedor">
     <div style="background: #ECEFF1;padding: 10px 0 0 10px;">
-    	<a th:href="@{/admin/productos}"><i class="fas fa-angle-left"></i> Volver al listado</a>
+    	<a th:href="@{/admin/productos}" sec:authorize="hasAuthority('ADMIN')"><i class="fas fa-angle-left"></i> Volver al listado</a>
     </div>
         <main>
             <article>
-                <img th:if="${producto.foto != null && #strings.length(producto.foto) > 0}" th:src="@{'/admin/productos/uploads/' + ${producto.foto}}" alt="">
+                <img th:if="${producto.foto != null && #strings.length(producto.foto) > 0}" th:src="@{'/uploads/' + ${producto.foto}}" alt="">
                 <img th:if="${producto.foto == null}" th:src="@{/img/camara.png}">
             </article>
             <form>

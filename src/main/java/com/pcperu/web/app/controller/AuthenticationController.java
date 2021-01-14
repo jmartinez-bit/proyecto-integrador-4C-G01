@@ -1,5 +1,7 @@
 package com.pcperu.web.app.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pcperu.web.app.model.Producto;
 import com.pcperu.web.app.model.Usuario;
+import com.pcperu.web.app.service.CategoriaService;
+import com.pcperu.web.app.service.ProductoService;
 import com.pcperu.web.app.service.UsuarioService;
 
 @Controller
@@ -19,6 +24,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@Autowired
+	ProductoService productoService;
 
 	@PreAuthorize("!isAuthenticated()")
 	@GetMapping("/login")
@@ -35,7 +43,9 @@ public class AuthenticationController {
 	}
 	
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+		model.addAttribute("productoFavoritos", productoService.getProductosFavoritos());
+		model.addAttribute("productoExtra", productoService.getProductosExtra());
 		return "home";
 	}
 	
@@ -46,7 +56,7 @@ public class AuthenticationController {
 
 	@PreAuthorize("!isAuthenticated()")
 	@PostMapping("/register")
-	public String registerUser(@Valid Usuario usuario, BindingResult result, Model model) {
+	public String registerUser(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes flash) {
 		
 		if(usuario.getUsername().isBlank()){
 			model.addAttribute("error", "El nombre de usuario es requerido");
@@ -56,8 +66,8 @@ public class AuthenticationController {
 			model.addAttribute("successMessage", "Usuario ya existe");
 		}else {
 			usuarioService.registrarUsuario(usuario);
-			model.addAttribute("successMessage", "Usuario registrado satisfactoriamente");
-			return "login";
+			flash.addFlashAttribute("successMessage", "Usuario registrado satisfactoriamente");
+			return "redirect:/login";
 		}
 		return "register";
 	}
@@ -90,9 +100,11 @@ public class AuthenticationController {
 		}else if(usuarioService.usuarioExiste(usuario)){
 			model.addAttribute("successMessage", "Usuario ya existe");
 		}else {
-			usuarioService.registrarAdmin(usuario);
-			flash.addFlashAttribute("successMessage", "Cuenta registrada satisfactoriamente, Inicia Sesión!");
-			return "redirect:/login";
+			if(!usuario.getNombres().isBlank() && !usuario.getApellidos().isBlank() && !usuario.getTelefono().isBlank() && !usuario.getDireccion().isBlank()) {				
+				usuarioService.registrarAdmin(usuario);
+				flash.addFlashAttribute("successMessage", "Cuenta registrada satisfactoriamente, Inicia Sesión!");
+				return "redirect:/login";
+			}
 		}
 		return "register2";
 	}

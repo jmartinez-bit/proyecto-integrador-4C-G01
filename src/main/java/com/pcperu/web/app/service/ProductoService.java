@@ -14,6 +14,8 @@ public interface ProductoService {
 	
 	public Page<Producto> list(Pageable pageable, String nombre);
 	
+	public Page<Producto> list(Pageable pageable);
+	
 	public Optional<Producto> getOne(int id);
 	
 	public Optional<Producto> getByNombre(String nombre);
@@ -27,5 +29,9 @@ public interface ProductoService {
 	public boolean existsByNombre(String nombre, String emailUsuario);
 	
 	public boolean existsById(int id, String emailUsuario);
+	
+	public List<Producto> getProductosFavoritos();
+	
+	public List<Producto> getProductosExtra();
 	
 }
