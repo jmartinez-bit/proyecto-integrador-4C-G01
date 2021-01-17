@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class CatalogoController {
 	@Autowired
 	ProductoService productoService;
 	
+	@PreAuthorize("!hasAuthority('ADMIN')")
 	@GetMapping("/productos")
 	public String catalogoProductos(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		Pageable pageRequest = PageRequest.of(page, 18);
@@ -30,6 +32,7 @@ public class CatalogoController {
 		return "/producto/lista";
 	}
 	
+	@PreAuthorize("!hasAuthority('ADMIN')")
 	@GetMapping("/productos/{id}")
 	public String productoDetalle(@PathVariable("id") int id, Model model) {
 		Producto producto = productoService.getOne(id).get();

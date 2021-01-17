@@ -4,7 +4,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/home_layout :: head"></head>
 <body>
 	<nav th:replace="fragments/home_layout :: nav"></nav>
-	Pagina no encontrada 404
+	<div class="container">
+		<div class="mt-5">
+			<img class="mx-auto d-block" alt="" width="400" th:src="@{/img/among-us.png}">
+			<h1 class="text-center text-monospace ">Error 404 - ¿Te encuentras perdido?</h1>
+		</div>
+	</div>
+	<div th:replace="fragments/home_layout :: overlay"></div>
+	<div th:replace="fragments/home_layout :: btn-cerrar"></div>
 	<div th:insert="fragments/home_layout :: scripts"></div>
 </body>
 </html>

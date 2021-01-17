@@ -18,6 +18,12 @@
 	    <span aria-hidden="true">&times;</span>
 	  </button>
 	</div>
+	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+	  <p th:text="${successMessage}" style="margin:0;"></p>
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
 	<main class="mt-5">
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2" sec:authorize="hasAuthority('ADMIN')">
 			<a th:href="@{/admin/productos/nuevo}" class="btn btn-primary">Nuevo producto</a>
@@ -90,7 +96,7 @@
 			</div>
 			<div class="contenedor-productos" sec:authorize="!hasAuthority('ADMIN')">
 				<div class="titulo">
-                    <h3>Procesadores</h3>
+                    <h3>Productos</h3>
                     <div class="icono-filtro">
                         <i class="fas fa-filter"></i>
                     </div>
@@ -108,6 +114,9 @@
 			</div>
 		</div>
 	</main>
+	<footer sec:authorize="!hasAuthority('ADMIN')" th:replace="fragments/home_layout :: footer"></footer>
+	<div th:replace="fragments/home_layout :: overlay"></div>
+	<div th:replace="fragments/home_layout :: btn-cerrar"></div>
 	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
 	<script th:src="@{/js/header_footer.js}"></script>
 	<script th:src="@{/js/productos.js}"></script>

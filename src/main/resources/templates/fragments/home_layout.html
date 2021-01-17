@@ -53,7 +53,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="barra">
                 <i class="fas fa-bars"></i>
             </div>
-            <a href="index.html" class="logo">
+            <a th:href="index.html" class="logo">
                 <img th:src="@{/img/logo.png}">
                 <h3> PC Perú</h3>
             </a>
@@ -70,7 +70,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </a>
         </div>
         <div class="header2">
-            <a href="index.html" class="logo2">
+            <a th:href="@{/}" class="logo2" sec:authorize="!hasAuthority('ADMIN')">
+                <img th:src="@{/img/logo.png}" width="45">
+                <h3>Pc Perú</h3>
+            </a>
+            <a th:href="@{/admin/productos}" class="logo2" sec:authorize="hasAuthority('ADMIN')">
                 <img th:src="@{/img/logo.png}" width="45">
                 <h3>Pc Perú</h3>
             </a>
@@ -130,7 +134,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			        <button class="btn btn-info" type="submit">Cerrar Sesión</button>
 			    </form>
             </div>
-            <a href="#" class="carrito2">
+            <a sec:authorize="!hasAuthority('ADMIN')" th:href="@{/carrito}" class="carrito2">
                 <i class="fas fa-cart-plus"></i>
             </a>
         </div>
@@ -233,7 +237,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <h4>Nuestros favoritos</h4>
             <div class="contenedor">
             	<th:block th:each="favorito: ${productoFavoritos}">
-	                <a href="#">
+	                <a th:href="@{'/productos/' + ${favorito.id}}">
 	                    <img class="d-block w-100" th:if="${favorito.foto != null && #strings.length(favorito.foto) > 0}" th:src="@{'/uploads/' + ${favorito.foto}}" th:alt="${favorito.foto}">
                 		<img class="d-block w-100" th:if="${favorito.foto == null}" th:src="@{/img/camara.png}">
 	                    <h6 th:text="${favorito.nombre}"></h6>
@@ -246,7 +250,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <h4>Artículos extra</h4>
             <div class="contenedor">
 	            <th:block th:each="extra: ${productoExtra}">
-	                <a href="#">
+	                <a th:href="@{'/productos/' + ${extra.id}}">
 	                    <img class="d-block w-100" th:if="${extra.foto != null && #strings.length(extra.foto) > 0}" th:src="@{'/uploads/' + ${extra.foto}}" th:alt="${extra.foto}">
                 		<img class="d-block w-100" th:if="${extra.foto == null}" th:src="@{/img/camara.png}">
 	                    <h6 th:text="${extra.nombre}"></h6>
@@ -314,6 +318,25 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </div>
         </div>
     </footer>
+    <div th:fragment="standard_modal" class="modal fade text-center" id="myModal">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    		
+    			<div class="modal-header">
+    				<h4 class="modal-title" id="modalTitle">Warning</h4>
+    				<button type="button" class="close" data-dismiss="modal">&times;</button>
+    			</div>
+    			
+    			<div class="modal-body">
+    				<span id="modalBody"></span>
+    			</div>
+    			
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
     <div class="overlay" th:fragment="overlay"></div>
     </div>
     <div class="boton-cerrar" th:fragment="btn-cerrar">

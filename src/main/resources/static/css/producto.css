@@ -21,7 +21,7 @@ article img{
 }
 /*****************/
 /*form*/
-.super-contenedor form{
+.super-contenedor .detalle-producto{
     background: white;
     padding: 5px;
     max-width: 525px;
@@ -30,7 +30,7 @@ article img{
     width: 100%;
 }
 /*estrellas*/
-.super-contenedor form h5{
+.super-contenedor .detalle-producto h5{
     width: 100%;
     margin-bottom: 0;
     display: flex;
@@ -38,7 +38,7 @@ article img{
     align-items: center;
     padding: 5px;
 }
-.super-contenedor form h5 i{
+.super-contenedor .detalle-producto h5 i{
     font-size: 22px;
     margin-left: 2px;
     margin-right: 2px;
@@ -46,7 +46,7 @@ article img{
 }
 /**********/
 /*Nombre*/
-.super-contenedor form h6{
+.super-contenedor .detalle-producto h6{
     margin-bottom: 0;
     font-size: 14px;
     padding: 5px;
@@ -55,14 +55,14 @@ article img{
     font-weight: 600;
 }
 /*precio - cantidad*/
-.super-contenedor form section{
+.super-contenedor .detalle-producto section{
     margin-top: 5px;
     width: 100%;
     display: flex;
     padding: 5px;
     justify-content: space-between;
 }
-.super-contenedor form section{
+.super-contenedor .detalle-producto section{
     padding: 0;
     height: 30px;
 }
@@ -176,7 +176,7 @@ article img{
     padding: 10px;
     flex-wrap: wrap;
 }
-#carrito, .botones button{
+#buttonAdd2Cart, .botones button, .botones .btn-catalogo-productos{
     margin: 5px 8px;
     min-width: 200px;
     width: 50%;
@@ -185,23 +185,27 @@ article img{
     color: rgb(255, 255, 255);
     border: none;
     border-radius: 20px;
-    height: 35px;
+    padding: 7px 0;
     background: rgba(19, 193, 172);
     border: 1px solid rgba(19, 193, 172);
     cursor: pointer;
     transition: .4s;
+    text-align: center;
+    text-decoration: none;
 }
-#carrito:hover{
+
+#buttonAdd2Cart:hover{
     background: white;
     color: rgba(19, 193, 172);
     border: 1px solid rgba(19, 193, 172);
     transition: .4s;
 }
-.botones button:hover{
+.botones button:hover, .botones .btn-catalogo-productos:hover{
     background: rgb(243, 116, 23);
     color: white;
 }
-.botones button{
+
+.botones button, .botones .btn-catalogo-productos{
     background: none;
     border: 1px solid rgb(243, 116, 23);
     color: rgb(243, 116, 23);
@@ -225,7 +229,7 @@ article img{
     article {
         margin: 0 5px;
     }
-    form{
+    .detalle-producto{
         margin: 0 5px;
     }
 }

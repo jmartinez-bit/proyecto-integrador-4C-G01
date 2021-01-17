@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -51,8 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/oauth2/**", "/login", "/", "/register", "/register2", "/uploads/**","/productos/**").permitAll()
+		http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        .and().authorizeRequests()
+				.antMatchers("/oauth2/**", "/login", "/", "/register", "/register2", "/uploads/**","/productos/**", "/carrito/add/**").permitAll()
+				.antMatchers("/carrito").authenticated()
 				.antMatchers("/home/**").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers("/admin/**").hasAnyAuthority("ADMIN")
 				.anyRequest().authenticated()

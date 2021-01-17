@@ -42,11 +42,17 @@ public class AuthenticationController {
 		return "register";
 	}
 	
+	@PreAuthorize("!hasAuthority('ADMIN')")
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("productoFavoritos", productoService.getProductosFavoritos());
 		model.addAttribute("productoExtra", productoService.getProductosExtra());
 		return "home";
+	}
+	
+	@GetMapping("/user")
+	public String user() {
+		return "redirect:/";
 	}
 	
 	@GetMapping("/admin")

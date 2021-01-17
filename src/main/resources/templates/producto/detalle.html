@@ -8,11 +8,25 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <link rel="stylesheet" th:href="@{/css/producto.css}">
     <script src="https://kit.fontawesome.com/ef09053d88.js" crossorigin="anonymous"></script>
     <title>Producto</title>
+    <style>
+		.alert {
+			position: absolute;
+			top: 0%;
+			width: 100%;
+			right: 0%;
+		}
+	</style>
 </head>
 <body>
 	<nav th:replace="fragments/home_layout :: nav"></nav>
     <div class="super-contenedor">
     <div style="background: #ECEFF1;padding: 10px 0 0 10px;">
+    	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+		  <p th:text="${successMessage}" style="margin:0;"></p>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
     	<a th:href="@{/admin/productos}" sec:authorize="hasAuthority('ADMIN')"><i class="fas fa-angle-left"></i> Volver al listado</a>
     </div>
         <main>
@@ -20,7 +34,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <img th:if="${producto.foto != null && #strings.length(producto.foto) > 0}" th:src="@{'/uploads/' + ${producto.foto}}" alt="">
                 <img th:if="${producto.foto == null}" th:src="@{/img/camara.png}">
             </article>
-            <form>
+            <div class="detalle-producto">
                 <h6 th:text="${producto.nombre}"></h6>
                 <section>
                     <div class="left" th:text="'S/. ' + ${producto.precioVenta}"></div>
@@ -50,16 +64,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         </div>
                     </div>
                 </div>
+                <div sec:authorize="!hasAuthority('ADMIN')" th:replace="fragments/cantidad_control :: cantidad_control(1, ${producto.id})">Cantidad</div>
                 <div class="botones" sec:authorize="!hasAuthority('ADMIN')">
-                    <input type="submit" value="Añadir al carrito" id="carrito">
-                    <button>Ver otros vendedores</button>
+                    <button class="carrito-btn" id="buttonAdd2Cart">Agregar al Carrito</button>
+                    <a th:href="@{/productos}" class="btn-catalogo-productos">Ver otros vendedores</a>
                 </div>
                 <div class="botones" sec:authorize="hasAuthority('ADMIN')">
                     <a th:href="@{'/admin/productos/editar/' + ${producto.id}}" class="btn btn-secondary">Editar Producto</a>&nbsp&nbsp
                     <a th:href="@{'/admin/productos/borrar/' + ${producto.id}}" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar')">Eliminar producto</a>
                 </div>
-            </form>
-        </main>
+            </div>
+        </div>
         
     
         <footer>
@@ -122,10 +137,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="boton-cerrar">
         <i class="fas fa-times"></i>
     </div>
-
+	
+	<div th:replace="fragments/home_layout :: standard_modal">Standard Modal Dialog</div>
+	<script type="text/javascript">
+		contextPath = "[[@{/}]]";
+		var crsfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		var productoId = "[[${producto.id}]]";
+	</script>
 	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/header_footer.js}"></script>
 	<script th:src="@{/js/producto.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/cantidad_control.js}"></script>
+	<script th:src="@{/js/agregar_al_carrito.js}"></script>
 </body>
 </html>

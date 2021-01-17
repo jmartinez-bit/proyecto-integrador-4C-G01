@@ -297,7 +297,7 @@ body{
 }
 
 /*Espaciado del header y menu*/
-nav{
+.navbarr{
     height: 60px;
     width: 100%;
     background:#ff6000;

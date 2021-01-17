@@ -1,19 +1,16 @@
 package com.pcperu.web.app.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,14 +45,19 @@ public class ProductoController {
 	@Autowired
 	CategoriaService categoriaService;
 	
+	@Bean
+	public Authentication auth() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth;
+	}
+	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping({"/", ""})
 	public String list(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Pageable pageRequest = PageRequest.of(page, 5);
 		
-		if(auth != null) {
-			Page<Producto> productos = productoService.list(pageRequest, auth.getName());
+		if(auth() != null) {
+			Page<Producto> productos = productoService.list(pageRequest, auth().getName());
 			PageRender<Producto> pageRender = new PageRender<>("/admin/productos/", productos);
 			model.addAttribute("productos", productos);
 			model.addAttribute("page", pageRender);
@@ -80,15 +82,13 @@ public class ProductoController {
 		List<Categoria> categorias2 = categoriaService.list();
 		model.addAttribute("categoriasLista", categorias2);
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
 		if(result.hasErrors()) {
 			model.addAttribute("error", "Por favor corrige los siguientes errores");
 			return "/producto/nuevo";
 		}
 		
-		if(auth != null) {
-			if(productoService.existsByNombre(producto.getNombre(), auth.getName())) { 
+		if(auth() != null) {
+			if(productoService.existsByNombre(producto.getNombre(), auth().getName())) { 
 				model.addAttribute("error", "Hay un producto registrado con el mismo nombre"); 
 				return "/producto/nuevo";
 			} 
@@ -111,15 +111,15 @@ public class ProductoController {
 			return "/producto/nuevo";
 		}
 		
-		productoService.save(producto, auth.getName());
+		productoService.save(producto, auth().getName());
+		flash.addFlashAttribute("successMessage", "Producto agregado satisfactoriamente.");
 		return "redirect:/admin/productos";
 	}
 	
 	@GetMapping("/detalle/{id}")
 	public String detalle(@PathVariable("id") int id, Map<String, Object> model, RedirectAttributes flash) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth != null) {			
-			if(!productoService.existsById(id, auth.getName())) {
+		if(auth() != null) {			
+			if(!productoService.existsById(id, auth().getName())) {
 				flash.addFlashAttribute("error", "El producto no existe");
 				return "redirect:/admin/productos";
 			}
@@ -133,9 +133,8 @@ public class ProductoController {
 	public String editar(@PathVariable("id") int id, RedirectAttributes flash, Model model) {
 		List<Categoria> categorias = categoriaService.list();
 		model.addAttribute("categoriasLista", categorias);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth != null) {			
-			if(!productoService.existsById(id, auth.getName())) {
+		if(auth() != null) {			
+			if(!productoService.existsById(id, auth().getName())) {
 				flash.addFlashAttribute("error", "El producto no existe");
 				return "redirect:/admin/productos";
 			}
@@ -150,17 +149,15 @@ public class ProductoController {
 		List<Categoria> categorias2 = categoriaService.list();
 		model.addAttribute("categoriasLista", categorias2);
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
 		if(result.hasErrors()) {
 			
 			model.addAttribute("error", "Por favor corrige los siguientes errores");
 			return "/producto/editar";
 		}
 		
-		if(auth != null) {
+		if(auth() != null) {
 			if(!productoService.getOne(producto.getId()).get().getNombre().equals(producto.getNombre())) {
-				if(productoService.existsByNombre(producto.getNombre(), auth.getName())) { 
+				if(productoService.existsByNombre(producto.getNombre(), auth().getName())) { 
 					model.addAttribute("error", "Hay un producto registrado con el mismo nombre"); 
 					return "/producto/editar";
 				}
@@ -193,15 +190,15 @@ public class ProductoController {
 			return "/producto/editar";
 		}
 		 
-		productoService.save(producto, auth.getName());
+		productoService.save(producto, auth().getName());
+		flash.addFlashAttribute("successMessage", "Producto actualizado satisfactoriamente.");
 		return "redirect:/admin/productos/detalle/"+producto.getId();
 	}
 	
 	@GetMapping("/borrar/{id}")
 	public String borrar(@PathVariable("id") int id, RedirectAttributes flash) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth != null) {			
-			if(!productoService.existsById(id, auth.getName())) {
+		if(auth() != null) {			
+			if(!productoService.existsById(id, auth().getName())) {
 				flash.addFlashAttribute("error", "El producto no existe");
 				return "redirect:/admin/productos";
 			}
